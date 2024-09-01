@@ -4,7 +4,7 @@
 
 <img src="static/terraform-code-report.webp" width="500px">
 
-This application takes a natural language description of an engineer, for example `Jamie Wright who works are HashiCorp`, then returns a report of how well their most recent GitHub commits conform to the [Terraform Specific Specification](https://azure.github.io/Azure-Verified-Modules/specs/terraform/) from Azure. 
+This application takes a natural language description of an engineer, for example `Jamie Wright who works at HashiCorp`, then returns a report of how well their most recent GitHub commits conform to the [Terraform Specific Specification](https://azure.github.io/Azure-Verified-Modules/specs/terraform/) from Azure. 
 
 It will write a repository report for each HCL repository found, then write a report summarizing all repository reports into 1 engineer report. 
 
@@ -34,7 +34,7 @@ An example or each of these reports can be found [here](#example-reports-generat
 Include the following command line flags to set configuration.
 | Item | Required | Default value | Example | Description |
 | - | - | - | - | - | 
-| search | Required | - | `--search="Jamie Wright who works are HashiCorp"` | Sets search query string. |
+| search | Required | - | `--search="Jamie Wright who works at HashiCorp"` | Sets search query string. |
 | debug | Optional | `false` | `--debug` | Increase logging verbosity. |
 | max-repos | Optional | `3` | `--max-repos=3` | Maximum number of repositorys to include in report, sorted by most recently updated first. |
 | max-files-per-repo | Optional | `5` | `--max-files-per-repo=5` | Maximum number of `.tf` files to evaluate per repository. |
@@ -76,7 +76,7 @@ python3 main.py --search="Jamie Wright who works at HashiCorp"
 ## Example output
 
 ```bash
-python3 main.py --search="Jamie Wright who works are HashiCorp"
+python3 main.py --search="Jamie Wright who works at HashiCorp"
 > Entering new AgentExecutor chain...
 I need to find the GitHub username for Jamie Wright, who works at HashiCorp. First, I will search for Jamie Wright's GitHub profile to find the username. 
 
