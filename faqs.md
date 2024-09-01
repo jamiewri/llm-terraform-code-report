@@ -4,7 +4,7 @@
 
 ## Why are you comparing to the Terraform Specific Specification?
 
-The first iteration of this application used [HashiCorp's offical Terraform style guide](https://developer.hashicorp.com/terraform/language/style), however because it mostly makes 'recommendations', the LLM would report that most examples conformed and was therefore less useful. 
+The first iteration of this application used [HashiCorp's official Terraform style guide](https://developer.hashicorp.com/terraform/language/style), however because it mostly makes 'recommendations', the LLM would report that most examples conformed and was therefore less useful. 
 
 In contrast, Azures [Terraform Specific Specification](https://azure.github.io/Azure-Verified-Modules/specs/terraform/) is written as ~40 hard requirements, with HCL examples. This is much easier for the LLM to make a decision if a code example conforms or not.
 

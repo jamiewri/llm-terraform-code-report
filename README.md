@@ -4,29 +4,29 @@
 
 <img src="static/terraform-code-report.webp" width="500px">
 
-This application takes a natural lanugage description of an engineer, for example `Jamie Wright who works are HashiCorp`, then returns a report of how well their most recent GitHub commits confrom to the [Terraform Specific Specification](https://azure.github.io/Azure-Verified-Modules/specs/terraform/) from Azure. 
+This application takes a natural language description of an engineer, for example `Jamie Wright who works are HashiCorp`, then returns a report of how well their most recent GitHub commits conform to the [Terraform Specific Specification](https://azure.github.io/Azure-Verified-Modules/specs/terraform/) from Azure. 
 
-It will write a repository report for each HCL repository found, then write a report summerizing all repository reports into 1 engineer report. 
+It will write a repository report for each HCL repository found, then write a report summarizing all repository reports into 1 engineer report. 
 
-> :information_source: This application is a prototype to validate the technology. I'm not suggesting that an LLM can perform an equivalant to human level performance when evaluating aderence to coding standards. 
+> :information_source: This application is a prototype to validate the technology. I'm not suggesting that an LLM can perform an equivalant to human level performance when evaluating adherence to coding standards. 
 
 > :warning: This is a prototype. Limited error handling has been implemented.
 
 ## Workflow
 
 1.  Search the web for the GitHub username of the described person.
-    - If the query includes a reference to the users employment, then the application with validate that it has found the correct user by futher searching the listed organization on their GitHub profile.
+    - If the query includes a reference to the users employment, then the application with validate that it has found the correct user by further searching the listed organization on their GitHub profile.
 2. Search the users GitHub organization for public repositories.
     - Sorting by most recently updated.
     - Excluding forks.
-    - Selecting only repositorys that contain 50% HCL code.
-3. Search inside each of the selected repsitories for files ending in `.tf`.
+    - Selecting only repositories that contain 50% HCL code.
+3. Search inside each of the selected repositories for files ending in `.tf`.
     - Searching to a configurable directory depth.
     - Upto a configurable maximum number of files.
     - Downloading all matching files.
 4. Generate reports
-    - Write a report summerizing the files aderence to the style guide and output a markdown report per repository.
-    - Write a report summerizing each the contents of all of the repository reports and output final markdown report.
+    - Write a report summarizing the files adherence to the style guide and output a markdown report per repository.
+    - Write a report summarizing each the contents of all of the repository reports and output final markdown report.
 
 An example or each of these reports can be found [here](#example-reports-generated).
 
@@ -43,22 +43,22 @@ Include the following command line flags to set configuration.
 
 ## Usage
 
-Create Python virtual environment and install dependancies.
+Create Python virtual environment and install dependencies.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-> :information_source: `requirements.txt` will install  `latest`. Change to `requirements-2024-01-09.txt` for known working verison.
+> :information_source: `requirements.txt` will install  `latest`. Change to `requirements-2024-01-09.txt` for known working version.
 
 Required API tokens.
 
 | API | Required | Description |
 | -- | -- | -- |
 | [Open AI API Token](https://platform.openai.com/api-keys) | Required | Used to authenticate to Open AI's API. |
-| [Tavily API Token](https://app.tavily.com/home) | Required | [Tavily](https://tavily.com) is a search engine built specifically for AI agents. This applicaiton uses this API to search for the GitHub users username.  |
-| [GitHub Personal Access Token](https://github.com/settings/tokens) |  Required | Every HCL file analysed requires 1 request to the GitHub API. [Unauthenticated](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-unauthenticated-users) requests are rate limited to 60 per hour. [Authenticated](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users) requests are are rated limited to 5,000 per hour. |
+| [Tavily API Token](https://app.tavily.com/home) | Required | [Tavily](https://tavily.com) is a search engine built specifically for AI agents. This application uses this API to search for the GitHub users username.  |
+| [GitHub Personal Access Token](https://github.com/settings/tokens) |  Required | Every HCL file analyzed requires 1 request to the GitHub API. [Unauthenticated](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-unauthenticated-users) requests are rate limited to 60 per hour. [Authenticated](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users) requests are are rated limited to 5,000 per hour. |
 
 
 Export the required API tokens as environment variables.
@@ -516,7 +516,7 @@ The overall score is calculated as the average of the individual file scores: (7
 ## Improvements
 
 1. Reports are still generic and appear to be repeating the same 3-4 rule violations.
-    -  Evaluate each Terraform resource against each coding stardard rule individually. Similar to how CoPilot and CodeWhisperer prompt, but probably using the [Batch API](https://platform.openai.com/docs/guides/batch).
+    -  Evaluate each Terraform resource against each coding standard rule individually. Similar to how CoPilot and CodeWhisperer prompt, but probably using the [Batch API](https://platform.openai.com/docs/guides/batch).
 2. Repetitive `requests` definition.
     - Migrate to [GitHub Python SDK](https://github.com/PyGithub/PyGithub).
 3. Serialization of inference and downloads negatively impacts overall run time.
